@@ -1,10 +1,8 @@
-# server.py
 import os, re, json, base64, time, requests
 from flask import Flask, request, jsonify
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 app = Flask(__name__)
-
 EXPECTED_SECRET = os.environ.get("QUIZ_SECRET", "s3cr3t-Quiz-2025-XYZ")
 MAX_TOTAL_SECONDS = int(os.environ.get("MAX_TOTAL_SECONDS", "170"))
 
@@ -65,9 +63,7 @@ def quiz():
             else:
                 parsed["raw"] = page.inner_text("body")[:2000]
 
-            # simple default answer
             answer = parsed.get("answer") or 0
-
             submit_url = parsed.get("submit_url") or find_submit_endpoint(html)
             if not submit_url:
                 return ok({"status": "no-submit-url", "parsed": parsed})
@@ -75,9 +71,7 @@ def quiz():
                 from urllib.parse import urljoin
                 submit_url = urljoin(url, submit_url)
 
-            payload_out = {
-                "email": email, "secret": secret, "url": url, "answer": answer
-            }
+            payload_out = {"email": email, "secret": secret, "url": url, "answer": answer}
             r = requests.post(submit_url, json=payload_out, timeout=30)
             try:
                 result = r.json()
