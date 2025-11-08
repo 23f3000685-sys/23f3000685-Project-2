@@ -1,9 +1,8 @@
 # LLM Quiz Solver API
 
-This Flask API accepts quiz tasks, renders JavaScript pages via Playwright, extracts instructions, and submits answers.
+Flask API that solves quiz tasks involving data sourcing, analysis, and visualization.
 
-## 🚀 How to run locally
-
+## Run locally
 ```bash
 pip install -r requirements.txt
 playwright install chromium
