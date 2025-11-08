@@ -1,6 +1,5 @@
-__pycache__/
+pycache/
 .env
 *.pyc
 *.log
 playwright/.cache/
----
