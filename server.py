@@ -28,9 +28,13 @@ def find_submit_endpoint(html):
     if m: return m.group(1)
     return None
 
-@app.route("/", methods=["GET"])
+@app.route("/", methods=["GET", "POST"])
 def home():
-    return "Quiz API running"
+    if request.method == "POST":
+        data = request.get_json()
+        print(data)
+        return {"status": "received", "data": data}
+    return "API running"
 
 @app.route("/api/quiz-webhook", methods=["POST"])
 def quiz():
