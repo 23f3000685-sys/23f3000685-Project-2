@@ -1,16 +1,12 @@
-FROM mcr.microsoft.com/playwright/python:v1.49.0-focal
+FROM mcr.microsoft.com/playwright/python:v1.47.0-jammy
 
 # Create app directory
 WORKDIR /app
 
-# Copy code
-COPY . /app
+COPY requirements.txt .
 
-# Install dependencies
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install -r requirements.txt
 
-# Expose port
-EXPOSE 8000
+COPY . .
 
-# Run the server
-CMD ["python", "server.py"]
+CMD ["python", "app.py"]
