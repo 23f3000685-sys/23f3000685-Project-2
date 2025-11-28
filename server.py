@@ -24,10 +24,13 @@ def forbidden(msg): return jsonify({"error": msg}), 403
 def ok(data): return jsonify(data), 200
 
 def extract_base64_from_atob(html):
-m = re.search(r"atob(\s*`([^`]*)`", html, re.DOTALL)
-if not m:
-m = re.search(r"atob(['"]([^'%22]+)['"])", html, re.DOTALL)
-return m.group(1) if m else None
+    m = re.search(r"atob\(\s*`([^`]*)`", html, re.DOTALL)
+    if m:
+        return m.group(1)
+    m = re.search(r'atob\(["\']([^"\']+)["\']\)', html, re.DOTALL)
+    if m:
+        return m.group(1)
+    return None
 
 def decode_base64_safe(b64):
 pad = len(b64) % 4
