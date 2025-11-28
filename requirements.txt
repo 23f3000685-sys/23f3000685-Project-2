@@ -5,4 +5,4 @@ pandas
 pdfplumber
 tabula-py
 camelot-py[cv]
-gunicorn
+openai
